@@ -1,0 +1,17 @@
+License
+
+This work is licensed under a Creative Commons Attribution 4.0 International License.
+More information can be found here: https://creativecommons.org/licenses/by/4.0/
+
+===========================================================================
+
+Please cite the following paper if you use the data/code (or part of it):
+
+   "Manhattan-world Urban Reconstruction from Point Clouds". ECCV 2016.
+       - Minglei Li (minglei_li@126.com),
+       - Peter Wonka (pwonka@gmail.com),
+       - Liangliang Nan (liangliang.nan@gmail.com)
+
+===========================================================================
+
+Aug. 31, 2016

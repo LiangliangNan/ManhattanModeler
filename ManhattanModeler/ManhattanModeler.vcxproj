@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D5DCB796-638E-405E-BE60-A779B1743C37}</ProjectGuid>
+    <RootNamespace>Points2Surface</RootNamespace>
+    <Keyword>Qt4VSv1.0</Keyword>
+    <ProjectName>ManhattanModeler</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>$(CGAL_DIR)\auxiliary\gmp\include;$(OPENGL_DIR)\include;$(BOOST_DIR)\include;$(CGAL_DIR)\include;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtXml;.\;..\3rd_ransac;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN64;QT_THREAD_SUPPORT;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <OpenMPSupport>true</OpenMPSupport>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat />
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5OpenGL.lib;Qt5Widgets.lib;opengl32.lib;glu32.lib;Shell32.lib;libgmp-10.lib;libmpfr-4.lib</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(CGAL_DIR)\lib;$(BOOST_DIR)\lib64-msvc-12.0;$(QTDIR)\lib;$(CGAL_DIR)\auxiliary\gmp\lib;$(OPENGL_DIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(CGAL_DIR)\auxiliary\gmp\include;$(OPENGL_DIR)\include;$(BOOST_DIR)\include;$(CGAL_DIR)\include;.\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(Configuration);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtXml;.\;..\3rd_ransac;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;_DEBUG;WIN64;QT_THREAD_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5OpenGLd.lib;Qt5Widgetsd.lib;opengl32.lib;glu32.lib;Shell32.lib;libgmp-10.lib;libmpfr-4.lib</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(CGAL_DIR)\lib;$(BOOST_DIR)\lib64-msvc-12.0;$(QTDIR)\lib;$(CGAL_DIR)\auxiliary\gmp\lib;$(OPENGL_DIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="basic_types.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="CCube.h" />
+    <CustomBuild Include="DlgransacParam.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DlgransacParam.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I$(CGAL_DIR)\auxiliary\gmp\include" "-I$(OPENGL_DIR)\include" "-I$(BOOST_DIR)\include" "-I$(CGAL_DIR)\include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I." "-I.\..\3rd_ransac"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DlgransacParam.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I$(CGAL_DIR)\auxiliary\gmp\include" "-I$(OPENGL_DIR)\include" "-I$(BOOST_DIR)\include" "-I$(CGAL_DIR)\include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I." "-I.\..\3rd_ransac"</Command>
+    </CustomBuild>
+    <CustomBuild Include="DlgFittingBox.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DlgFittingBox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I$(CGAL_DIR)\auxiliary\gmp\include" "-I$(OPENGL_DIR)\include" "-I$(BOOST_DIR)\include" "-I$(CGAL_DIR)\include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I." "-I.\..\3rd_ransac"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DlgFittingBox.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I$(CGAL_DIR)\auxiliary\gmp\include" "-I$(OPENGL_DIR)\include" "-I$(BOOST_DIR)\include" "-I$(CGAL_DIR)\include" "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtXml" "-I." "-I.\..\3rd_ransac"</Command>
+    </CustomBuild>
+    <ClInclude Include="kd_tree\kdTree.h" />
+    <ClInclude Include="kd_tree\PriorityQueue.h" />
+    <ClInclude Include="kd_tree\QueryGrid.h" />
+    <ClInclude Include="kd_tree\vector2D.h" />
+    <ClInclude Include="kd_tree\vector3D.h" />
+    <CustomBuild Include="CDlgAddPlane.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing CDlgAddPlane.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing CDlgAddPlane.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+    </CustomBuild>
+    <ClInclude Include="CFittingBox.h" />
+    <ClInclude Include="CMeshObj.h" />
+    <ClInclude Include="color.h" />
+    <ClInclude Include="CoordTransf.h" />
+    <ClInclude Include="counted.h" />
+    <ClInclude Include="CPointCloud.h" />
+    <ClInclude Include="CPolyHedron.h" />
+    <ClInclude Include="CScanVertex.h" />
+    <ClInclude Include="CVector3D.h" />
+    <ClInclude Include="CVertexGroup.h" />
+    <ClInclude Include="draw_model.h" />
+    <ClInclude Include="fitBoxes.h" />
+    <ClInclude Include="GeneratedFiles\ui_dlgAddPln.h" />
+    <ClInclude Include="GeneratedFiles\ui_dlgFittingBox.h" />
+    <ClInclude Include="GeneratedFiles\ui_main_window.h" />
+    <ClInclude Include="GeneratedFiles\ui_ransacParam.h" />
+    <ClInclude Include="ioFile.h" />
+    <ClInclude Include="logger.h" />
+    <ClInclude Include="logger_client.h" />
+    <CustomBuild Include="main_window.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing main_window.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing main_window.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+    </CustomBuild>
+    <ClInclude Include="math_global.h" />
+    <ClInclude Include="math_types.h" />
+    <CustomBuild Include="paint_canvas.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing paint_canvas.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing paint_canvas.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+    </CustomBuild>
+    <ClInclude Include="Parameters.h" />
+    <ClInclude Include="pgm_io.h" />
+    <ClInclude Include="plyIO.h" />
+    <ClInclude Include="PlyLoad.h" />
+    <ClInclude Include="ProgressBar.h" />
+    <ClInclude Include="ransac_detector.h" />
+    <ClInclude Include="rply.h" />
+    <ClInclude Include="select_tool.h" />
+    <CustomBuild Include="simpleWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing simpleWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -D_DEBUG -DWIN64 -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing simpleWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN64 -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_DLL -D_UNICODE "-I.\GeneratedFiles" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(Configuration)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtWidgets" "-I."</Command>
+    </CustomBuild>
+    <ClInclude Include="smart_pointer.h" />
+    <ClInclude Include="tool3D.h" />
+    <ClInclude Include="tool_manager3d.h" />
+    <ClInclude Include="tool_name.h" />
+    <ClInclude Include="tree_item.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="dlgAddPln.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="dlgFittingBox.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="main_window.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ransacParam.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="basic_types.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="CCube.cpp" />
+    <ClCompile Include="CDlgAddPlane.cpp" />
+    <ClCompile Include="CFittingBox.cpp" />
+    <ClCompile Include="CMeshObj.cpp" />
+    <ClCompile Include="color.cpp" />
+    <ClCompile Include="CoordTransf.cpp" />
+    <ClCompile Include="counted.cpp" />
+    <ClCompile Include="CPointCloud.cpp" />
+    <ClCompile Include="CPolyHedron.cpp" />
+    <ClCompile Include="CScanVertex.cpp" />
+    <ClCompile Include="CVector3D.cpp" />
+    <ClCompile Include="CVertexGroup.cpp" />
+    <ClCompile Include="DlgFittingBox.cpp" />
+    <ClCompile Include="DlgransacParam.cpp" />
+    <ClCompile Include="fitBoxes.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_CDlgAddPlane.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DlgFittingBox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DlgransacParam.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_main_window.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_paint_canvas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_simpleWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_ManhattanModeler.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_CDlgAddPlane.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DlgFittingBox.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DlgransacParam.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_main_window.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_paint_canvas.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_simpleWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ioFile.cpp" />
+    <ClCompile Include="kd_tree\kdTree.cpp" />
+    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="logger_client.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_window.cpp" />
+    <ClCompile Include="math_global.cpp" />
+    <ClCompile Include="math_types.cpp" />
+    <ClCompile Include="paint_canvas.cpp" />
+    <ClCompile Include="Parameters.cpp" />
+    <ClCompile Include="pgm_io.cpp" />
+    <ClCompile Include="PlyLoad.cpp" />
+    <ClCompile Include="ProgressBar.cpp" />
+    <ClCompile Include="ransac_detector.cpp" />
+    <ClCompile Include="rply.c" />
+    <ClCompile Include="select_tool.cpp" />
+    <ClCompile Include="simpleWidget.cpp" />
+    <ClCompile Include="tool3D.cpp" />
+    <ClCompile Include="tool_manager3d.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\3rd_graphcut\3rd_graphcut.vcxproj">
+      <Project>{1d82adda-ad2c-4f27-bb96-3cbb111353c0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rd_qglviewer\3rd_qglviewer.vcxproj">
+      <Project>{944083fe-23c5-3ede-a305-0c342d1af872}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\3rd_ransac\3rd_ransac.vcxproj">
+      <Project>{0c634703-9fc6-4744-a944-a00c53cd6042}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Resources\ManhattanModeler.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);.\Resources\DualContouring.png;.\Resources\adjust_group_height.png;.\Resources\David.png;.\Resources\poisson.png;.\Resources\antialiasing.png;.\Resources\automatic_copy.png;.\Resources\axis.png;.\Resources\axis_and_label.png;.\Resources\background_color.png;.\Resources\boundaries.png;.\Resources\brush.png;.\Resources\button_light.gif;.\Resources\button_line.gif;.\Resources\button_wire.gif;.\Resources\cancel.png;.\Resources\circle.png;.\Resources\clear.png;.\Resources\clear_strokes.png;.\Resources\color_by_height.png;.\Resources\colors.png;.\Resources\computer-32.png;.\Resources\cone.png;.\Resources\contour_sketch.png;.\Resources\contours.png;.\Resources\copy.png;.\Resources\cuboid.png;.\Resources\cylinder.png;.\Resources\demo_insert.bmp;.\Resources\demo_merge.bmp;.\Resources\demo_pointlocation.bmp;.\Resources\demo_rayshoot.bmp;.\Resources\demo_snapgrid.bmp;.\Resources\demo_snapvertex.bmp;.\Resources\demo_split.bmp;.\Resources\demo_zoomin.bmp;.\Resources\demo_zoomout.bmp;.\Resources\depth_image.png;.\Resources\designer-buddy-tool.png;.\Resources\designer-edit-resources-button.png;.\Resources\designer-tab-order-tool.png;.\Resources\display.png;.\Resources\eraser.bmp;.\Resources\exit.png;.\Resources\extrude_polygon.png;.\Resources\fileclose.png;.\Resources\filenew.png;.\Resources\fileopen.png;.\Resources\filesave.png;.\Resources\fullscreen.png;.\Resources\go-first-32.png;.\Resources\go-last-32.png;.\Resources\go-next-32.png;.\Resources\go-previous-32.png;.\Resources\graph.png;.\Resources\green.png;.\Resources\ground.png;.\Resources\group.png;.\Resources\hand.png;.\Resources\hole.png;.\Resources\home.png;.\Resources\horizontal.png;.\Resources\house.png;.\Resources\icon.ico;.\Resources\icon.png;.\Resources\insert_circle.bmp;.\Resources\insert_polygon.bmp;.\Resources\italy.png;.\Resources\japan.png;.\Resources\kontact_journal.png;.\Resources\lasso.png;.\Resources\layer_edit_locked.png;.\Resources\layer_edit_unlocked.png;.\Resources\lighting.png;.\Resources\lightoff.png;.\Resources\lighton.png;.\Resources\linguist-editcut.png;.\Resources\linguist-phrasebookopen.png;.\Resources\linguist-validateaccelerators.png;.\Resources\linguist-validateplacemarkers.png;.\Resources\locate.bmp;.\Resources\manipulation.png;.\Resources\minus.png;.\Resources\Modeler.qrc;.\Resources\moving_point.png;.\Resources\no.png;.\Resources\normals.png;.\Resources\ok.png;.\Resources\optimization.png;.\Resources\options.png;.\Resources\orig_image.png;.\Resources\perspective.png;.\Resources\pick.png;.\Resources\pick2.png;.\Resources\plus.png;.\Resources\points_as_spheres.png;.\Resources\polyhedron.png;.\Resources\rectified_image.png;.\Resources\rectify.png;.\Resources\redo.png;.\Resources\reference_plane_base.png;.\Resources\reference_plane_top.png;.\Resources\rintersect.png;.\Resources\rotate.png;.\Resources\rotate_left.png;.\Resources\rotate_right.png;.\Resources\rsubtract.png;.\Resources\rtx_enter.jpg;.\Resources\runion.png;.\Resources\rxor.png;.\Resources\select_component.png;.\Resources\select_edge.png;.\Resources\select_face.png;.\Resources\select_mesh.png;.\Resources\select_points.png;.\Resources\select_vertexgroup.png;.\Resources\show_active_vertex_groups.png;.\Resources\show_all_vertex_group.png;.\Resources\show_cameras.png;.\Resources\show_hide.png;.\Resources\show_images.png;.\Resources\show_model.png;.\Resources\show_normals.png;.\Resources\show_pointcloud.png;.\Resources\sketch_cylinder.png;.\Resources\sketch_cylinder_on_facet.png;.\Resources\sketch_polygon.png;.\Resources\sketch_polygon_on_facet.png;.\Resources\sketch_polygons.png;.\Resources\sketch_prism.png;.\Resources\sketch_prism_on_facet.png;.\Resources\sketch_rectangle.png;.\Resources\sketch_rectangles.png;.\Resources\slice_pointcloud.png;.\Resources\smooth.png;.\Resources\snap_shot.png;.\Resources\snapping_box_from_planes.png;.\Resources\sphere.png;.\Resources\surface.png;.\Resources\test.png;.\Resources\textured_shading.png;.\Resources\torus.png;.\Resources\transfer_edges.png;.\Resources\transparent.png;.\Resources\triangle.png;.\Resources\triangulation.png;.\Resources\twosides.png;.\Resources\undo.png;.\Resources\vanishing_point.png;.\Resources\vertical.png;.\Resources\wireframe.png;.\Resources\wireframe_as_cylinders.png;.\Resources\woodbackground.png;.\Resources\woodbutton.png;.\Resources\xy_rotate.png;.\Resources\zero_faces.png;.\Resources\zoom-best-fit.png;.\Resources\zoomin.png;.\Resources\zoom-in-32.png;.\Resources\zoomout.png;.\Resources\zoom-out-32.png;.\Resources\axis_and_label.png;.\Resources\exit.png;.\Resources\fileopen.png;.\Resources\fullscreen.png;.\Resources\home.png;.\Resources\icon.png;.\Resources\icon.ico;.\Resources\colors.png;.\Resources\filesave.png;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);.\Resources\DualContouring.png;.\Resources\adjust_group_height.png;.\Resources\David.png;.\Resources\poisson.png;.\Resources\antialiasing.png;.\Resources\automatic_copy.png;.\Resources\axis.png;.\Resources\axis_and_label.png;.\Resources\background_color.png;.\Resources\boundaries.png;.\Resources\brush.png;.\Resources\button_light.gif;.\Resources\button_line.gif;.\Resources\button_wire.gif;.\Resources\cancel.png;.\Resources\circle.png;.\Resources\clear.png;.\Resources\clear_strokes.png;.\Resources\color_by_height.png;.\Resources\colors.png;.\Resources\computer-32.png;.\Resources\cone.png;.\Resources\contour_sketch.png;.\Resources\contours.png;.\Resources\copy.png;.\Resources\cuboid.png;.\Resources\cylinder.png;.\Resources\demo_insert.bmp;.\Resources\demo_merge.bmp;.\Resources\demo_pointlocation.bmp;.\Resources\demo_rayshoot.bmp;.\Resources\demo_snapgrid.bmp;.\Resources\demo_snapvertex.bmp;.\Resources\demo_split.bmp;.\Resources\demo_zoomin.bmp;.\Resources\demo_zoomout.bmp;.\Resources\depth_image.png;.\Resources\designer-buddy-tool.png;.\Resources\designer-edit-resources-button.png;.\Resources\designer-tab-order-tool.png;.\Resources\display.png;.\Resources\eraser.bmp;.\Resources\exit.png;.\Resources\extrude_polygon.png;.\Resources\fileclose.png;.\Resources\filenew.png;.\Resources\fileopen.png;.\Resources\filesave.png;.\Resources\fullscreen.png;.\Resources\go-first-32.png;.\Resources\go-last-32.png;.\Resources\go-next-32.png;.\Resources\go-previous-32.png;.\Resources\graph.png;.\Resources\green.png;.\Resources\ground.png;.\Resources\group.png;.\Resources\hand.png;.\Resources\hole.png;.\Resources\home.png;.\Resources\horizontal.png;.\Resources\house.png;.\Resources\icon.ico;.\Resources\icon.png;.\Resources\insert_circle.bmp;.\Resources\insert_polygon.bmp;.\Resources\italy.png;.\Resources\japan.png;.\Resources\kontact_journal.png;.\Resources\lasso.png;.\Resources\layer_edit_locked.png;.\Resources\layer_edit_unlocked.png;.\Resources\lighting.png;.\Resources\lightoff.png;.\Resources\lighton.png;.\Resources\linguist-editcut.png;.\Resources\linguist-phrasebookopen.png;.\Resources\linguist-validateaccelerators.png;.\Resources\linguist-validateplacemarkers.png;.\Resources\locate.bmp;.\Resources\manipulation.png;.\Resources\minus.png;.\Resources\Modeler.qrc;.\Resources\moving_point.png;.\Resources\no.png;.\Resources\normals.png;.\Resources\ok.png;.\Resources\optimization.png;.\Resources\options.png;.\Resources\orig_image.png;.\Resources\perspective.png;.\Resources\pick.png;.\Resources\pick2.png;.\Resources\plus.png;.\Resources\points_as_spheres.png;.\Resources\polyhedron.png;.\Resources\rectified_image.png;.\Resources\rectify.png;.\Resources\redo.png;.\Resources\reference_plane_base.png;.\Resources\reference_plane_top.png;.\Resources\rintersect.png;.\Resources\rotate.png;.\Resources\rotate_left.png;.\Resources\rotate_right.png;.\Resources\rsubtract.png;.\Resources\rtx_enter.jpg;.\Resources\runion.png;.\Resources\rxor.png;.\Resources\select_component.png;.\Resources\select_edge.png;.\Resources\select_face.png;.\Resources\select_mesh.png;.\Resources\select_points.png;.\Resources\select_vertexgroup.png;.\Resources\show_active_vertex_groups.png;.\Resources\show_all_vertex_group.png;.\Resources\show_cameras.png;.\Resources\show_hide.png;.\Resources\show_images.png;.\Resources\show_model.png;.\Resources\show_normals.png;.\Resources\show_pointcloud.png;.\Resources\sketch_cylinder.png;.\Resources\sketch_cylinder_on_facet.png;.\Resources\sketch_polygon.png;.\Resources\sketch_polygon_on_facet.png;.\Resources\sketch_polygons.png;.\Resources\sketch_prism.png;.\Resources\sketch_prism_on_facet.png;.\Resources\sketch_rectangle.png;.\Resources\sketch_rectangles.png;.\Resources\slice_pointcloud.png;.\Resources\smooth.png;.\Resources\snap_shot.png;.\Resources\snapping_box_from_planes.png;.\Resources\sphere.png;.\Resources\surface.png;.\Resources\test.png;.\Resources\textured_shading.png;.\Resources\torus.png;.\Resources\transfer_edges.png;.\Resources\transparent.png;.\Resources\triangle.png;.\Resources\triangulation.png;.\Resources\twosides.png;.\Resources\undo.png;.\Resources\vanishing_point.png;.\Resources\vertical.png;.\Resources\wireframe.png;.\Resources\wireframe_as_cylinders.png;.\Resources\woodbackground.png;.\Resources\woodbutton.png;.\Resources\xy_rotate.png;.\Resources\zero_faces.png;.\Resources\zoom-best-fit.png;.\Resources\zoomin.png;.\Resources\zoom-in-32.png;.\Resources\zoomout.png;.\Resources\zoom-out-32.png;.\Resources\axis_and_label.png;.\Resources\exit.png;.\Resources\fileopen.png;.\Resources\fullscreen.png;.\Resources\home.png;.\Resources\icon.png;.\Resources\icon.ico;.\Resources\colors.png;.\Resources\filesave.png;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\exit.png" />
+    <Image Include="Resources\fileopen.png" />
+    <Image Include="Resources\filesave.png" />
+    <Image Include="Resources\fullscreen.png" />
+    <Image Include="Resources\home.png" />
+    <Image Include="Resources\lighton.png" />
+    <Image Include="Resources\manipulation.png" />
+    <Image Include="Resources\snap_shot.png" />
+    <Image Include="Resources\transparent.png" />
+    <Image Include="Resources\triangulation.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" QtVersion="4.8.0" Qt5Version_x0020_x64="$(DefaultQtVersion)" QtVersion_x0020_x64="$(DefaultQtVersion)" QtVersion_x0020_Win32="$(DefaultQtVersion)" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

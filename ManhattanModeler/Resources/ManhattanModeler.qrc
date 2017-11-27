@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/Resources">
+        <file>exit.png</file>
+        <file>fileopen.png</file>
+        <file>filesave.png</file>
+        <file>fullscreen.png</file>
+        <file>home.png</file>
+        <file>lighton.png</file>
+        <file>manipulation.png</file>
+        <file>snap_shot.png</file>
+        <file>transparent.png</file>
+        <file>triangulation.png</file>
+    </qresource>
+</RCC>

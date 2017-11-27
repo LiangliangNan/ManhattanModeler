@@ -1,0 +1,11 @@
+// Microsoft Visual C++ generated resource script.
+//
+
+
+#define IDI_ICON_MAIN                   101
+
+IDI_ICON_MAIN ICON    DISCARDABLE  "Resources/icon.ico"
+
+
+
+/////////////////////////////////////////////////////////////////////////////

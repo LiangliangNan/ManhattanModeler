@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3rd_graphcut", "3rd_graphcut\3rd_graphcut.vcxproj", "{1D82ADDA-AD2C-4F27-BB96-3CBB111353C0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3rd_qglviewer", "3rd_qglviewer\3rd_qglviewer.vcxproj", "{944083FE-23C5-3EDE-A305-0C342D1AF872}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3rd_ransac", "3rd_ransac\3rd_ransac.vcxproj", "{0C634703-9FC6-4744-A944-A00C53CD6042}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ManhattanModeler", "ManhattanModeler\ManhattanModeler.vcxproj", "{D5DCB796-638E-405E-BE60-A779B1743C37}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D82ADDA-AD2C-4F27-BB96-3CBB111353C0}.Debug|x64.ActiveCfg = Debug|x64
+		{1D82ADDA-AD2C-4F27-BB96-3CBB111353C0}.Debug|x64.Build.0 = Debug|x64
+		{1D82ADDA-AD2C-4F27-BB96-3CBB111353C0}.Release|x64.ActiveCfg = Release|x64
+		{1D82ADDA-AD2C-4F27-BB96-3CBB111353C0}.Release|x64.Build.0 = Release|x64
+		{944083FE-23C5-3EDE-A305-0C342D1AF872}.Debug|x64.ActiveCfg = Debug|x64
+		{944083FE-23C5-3EDE-A305-0C342D1AF872}.Debug|x64.Build.0 = Debug|x64
+		{944083FE-23C5-3EDE-A305-0C342D1AF872}.Release|x64.ActiveCfg = Release|x64
+		{944083FE-23C5-3EDE-A305-0C342D1AF872}.Release|x64.Build.0 = Release|x64
+		{0C634703-9FC6-4744-A944-A00C53CD6042}.Debug|x64.ActiveCfg = Debug|x64
+		{0C634703-9FC6-4744-A944-A00C53CD6042}.Debug|x64.Build.0 = Debug|x64
+		{0C634703-9FC6-4744-A944-A00C53CD6042}.Release|x64.ActiveCfg = Release|x64
+		{0C634703-9FC6-4744-A944-A00C53CD6042}.Release|x64.Build.0 = Release|x64
+		{D5DCB796-638E-405E-BE60-A779B1743C37}.Debug|x64.ActiveCfg = Debug|x64
+		{D5DCB796-638E-405E-BE60-A779B1743C37}.Debug|x64.Build.0 = Debug|x64
+		{D5DCB796-638E-405E-BE60-A779B1743C37}.Release|x64.ActiveCfg = Release|x64
+		{D5DCB796-638E-405E-BE60-A779B1743C37}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		QtVersion = 4.8.0
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+	GlobalSection(Qt) = preSolution
+		Integration = True
+	EndGlobalSection
+EndGlobal
