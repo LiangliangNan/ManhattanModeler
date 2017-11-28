@@ -14,12 +14,12 @@ Test data/results and pre-built executable (64-bit Windows 8.1 and 10, may not b
 are available at the project page:
    http://web.siat.ac.cn/~liangliang/publications/2016/manhattan/manhattan.html
 
+How to run the program?
+  - Please follow the demo video in "ManhattanModeler (DemoWithTestData)" folder.
+  
 ===========================================================================
 
-How to run the program?
-  - Please follow the demo video in "ManhattanModeler(DemoWithTestData)" folder.
-
-How to compile the code?
+How to compile the source code?
   - The implementation is based on the following third party libraries;
        a) The gco-v3.0 library (included). See http://vision.csd.uwo.ca/code/
        b) CGAL (version 4.7 used in this implementation). You can downloaded it here: http://www.cgal.org/index.html
@@ -27,7 +27,7 @@ How to compile the code?
        d) libQGLViewer (included). See http://libqglviewer.com/
   - In this distribution, project file(s) for Visual Studio 2013 are provided for compiling the code.
 
-Should you have any question regarding the implementation, please contact Minglei Li (minglei_li@126.com). 
+Should you have any question regarding the implementation, please contact Dr. Minglei Li at minglei_li@126.com. 
 
 ===========================================================================
 
@@ -39,3 +39,4 @@ More information can be found here: https://creativecommons.org/licenses/by/4.0/
 ===========================================================================
 
 Aug. 31, 2016
+The Authors
