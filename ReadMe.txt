@@ -12,7 +12,7 @@ This code implements the urban reconstruction method described in:
 
 Test data/results and pre-built executable (64-bit Windows 8.1 and 10, may not be up-to-date)
 are available at the project page:
-   http://web.siat.ac.cn/~liangliang/publications/2016/manhattan/manhattan.html
+   https://3d.bk.tudelft.nl/liangliang/publications/2016/manhattan/manhattan.html
 
 How to run the program?
   - Please follow the demo video in "ManhattanModeler (DemoWithTestData)" folder.
