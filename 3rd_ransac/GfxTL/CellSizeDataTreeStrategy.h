@@ -1,6 +1,8 @@
 #ifndef GfxTL__CELLSIZEDATATREESTRATEGY_HEADER__
 #define GfxTL__CELLSIZEDATATREESTRATEGY_HEADER__
 
+#include <utility> // for std::pair
+
 namespace GfxTL
 {
 	template< class InheritedStrategyT, class KernelT >
@@ -168,7 +170,7 @@ namespace GfxTL
 						cells[i] = NULL;
 				if(!cells[0] && childCount)
 					cells[0] = (CellType *)0x1;
-				delete sizes;
+                delete [] sizes;
 			}
 
 			template< class SplitterT >

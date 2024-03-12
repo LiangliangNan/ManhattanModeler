@@ -1,10 +1,8 @@
 #ifndef MiscLib__REFCOUNTED_HEADER__
 #define MiscLib__REFCOUNTED_HEADER__
-
-#if (defined DOPARALLEL) && (defined _WIN32)
+#ifdef DOPARALLEL
 #include <omp.h>
 #endif
-
 
 namespace MiscLib
 {
@@ -26,7 +24,9 @@ namespace MiscLib
 
 		unsigned int AddRef() const
 		{
-			//#pragma omp atomic
+#ifdef DOPARALLEL
+			#pragma omp atomic
+#endif
 			++m_refCount;
 			return m_refCount;
 		}
@@ -35,7 +35,9 @@ namespace MiscLib
 		{
 			if(m_refCount == 1)
 			{
-				//#pragma omp critical
+#ifdef DOPARALLEL
+				#pragma omp critical
+#endif
 				{
 					if(m_refCount)
 					{
@@ -45,7 +47,9 @@ namespace MiscLib
 				}
 				return 0;
 			}
-			//#pragma omp atomic
+#ifdef DOPARALLEL
+			#pragma omp atomic
+#endif
 			--m_refCount;
 			return m_refCount;
 		}

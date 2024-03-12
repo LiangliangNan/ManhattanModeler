@@ -13,11 +13,9 @@
 #include "Octree.h"
 #include "ScorePrimitiveShapeVisitor.h"
 #include "FlatNormalThreshPointCompatibilityFunc.h"
-
-#if (defined DOPARALLEL) && (defined _WIN32)
+#ifdef DOPARALLEL
 #include <omp.h>
 #endif
-
 #undef max
 #undef min
 
@@ -102,10 +100,14 @@ void RansacShapeDetector::GenerateCandidates(
 {
 	size_t genCands = 0;
 
+#ifdef DOPARALLEL
 	#pragma omp parallel
+#endif
 	{
 	ScoreVisitorT scoreVisitorCopy(scoreVisitor);
+#ifdef DOPARALLEL
 	#pragma omp for schedule(dynamic, 10) reduction(+:genCands)
+#endif
 	for(int candIter = 0; candIter < 200; ++candIter)
 	{
 		// pick a sample level
@@ -162,7 +164,9 @@ void RansacShapeDetector::GenerateCandidates(
 				currentSize, m_options.m_bitmapEpsilon, 1);
 			if(cand.UpperBound() < m_options.m_minSupport)
 			{
+#ifdef DOPARALLEL
 				#pragma omp critical
+#endif
 				{
 				(*sampleLevelScores)[node->Level()].first += cand.ExpectedValue();
 				++(*sampleLevelScores)[node->Level()].second;
@@ -170,7 +174,9 @@ void RansacShapeDetector::GenerateCandidates(
 				continue;
 			}
 
+#ifdef DOPARALLEL
 			#pragma omp critical
+#endif
 			{
 				(*sampleLevelScores)[node->Level()].first += cand.ExpectedValue();
 				++(*sampleLevelScores)[node->Level()].second;
@@ -255,7 +261,6 @@ bool RansacShapeDetector::FindBestCandidate(CandidatesType &candidates,
 				break;
 			}
 		}
-		float frontExpectedValue, trialExpectedValue;
 		if(isEquivalent)
 		{
 			std::pop_heap(candHeap.begin(), candHeap.end(),
@@ -290,7 +295,8 @@ bool RansacShapeDetector::FindBestCandidate(CandidatesType &candidates,
 		else if((int)trial->ComputedSubsets()
 			> std::max(2, ((int)octrees.size()) - 2))
 			beatenCands.push_back(trial);
-nextCandidate:
+
+		//nextCandidate
 		trial = candHeap.front();
 		std::pop_heap(candHeap.begin(), candHeap.end(), CandidateHeapPred());
 		candHeap.pop_back();
@@ -526,8 +532,6 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 		sampleLevelProbability[i] = 1.0 / sampleLevelProbability.size();
 	size_t drawnCandidates = 0; // keep track of number of candidates
 		// that have been generated
-	size_t generatedCandidates = 0, testedCandidates = 0,
-		tddFailCandidates = 0;
 	float maxForgottenCandidate = 0; // the maximum size of a canidate
 		// that has been forgotten
 	size_t numTries = 0; // number of loops since last successful candidate
@@ -541,7 +545,6 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 	subsetScoreVisitor.SetShapeIndex(shapeIndex);
 	globalScoreVisitor.SetShapeIndex(shapeIndex);
 	size_t currentSize = pcSize;
-	size_t maxImproveSubsetDuringMaxSearch = octrees.size();
 	do
 	{
 		MiscLib::Vector< std::pair< float, size_t > > sampleLevelScores(
@@ -633,10 +636,10 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 					oldScore = newScore;
 					oldSize = newSize;
 					std::pair< size_t, float > score;
-					PrimitiveShape *shape;
-					if(shape = Fit(allowDifferentShapes, *clone.Shape(),
-						pc, clone.Indices()->begin(), clone.Indices()->end(),
-						&score))
+                    PrimitiveShape *shape = Fit(allowDifferentShapes, *clone.Shape(),
+                                                pc, clone.Indices()->begin(), clone.Indices()->end(),
+                                                &score);
+                    if(shape)
 					{
 						clone.Shape(shape);
 						newScore = clone.GlobalWeightedScore( globalScoreVisitor, globalOctree,
@@ -715,15 +718,20 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 
 				// reindex global octree
 				size_t minInvalidIndex = currentSize - numInvalid + beginIdx;
-				#pragma parallel for schedule(static)
-				for(intptr_t i = 0, j = 0; i < globalOctreeIndices.size(); ++i)
+				int j = 0;
+#ifdef DOPARALLEL
+				#pragma omp parallel for schedule(static)
+#endif
+				for(int i = 0; i < static_cast<int>(globalOctreeIndices.size()); ++i)
 					if(shapeIndex[globalOctreeIndices[i]] < minInvalidIndex)
 						globalOctreeIndices[j++] = shapeIndex[globalOctreeIndices[i]];
 				globalOctreeIndices.resize(currentSize - numInvalid);
 
 				// reindex candidates (this also recomputes the bounds)
-				#pragma parallel for schedule(static)
-				for(intptr_t i = 0; i < candidates.size(); ++i)
+#ifdef DOPARALLEL
+				#pragma omp parallel for schedule(static)
+#endif
+				for(int i = 0; i < static_cast<int>(candidates.size()); ++i)
 					candidates[i].Reindex(shapeIndex, minInvalidIndex, mergedSubsets,
 						subsetSizes, pc, currentSize - numInvalid, m_options.m_epsilon,
 						m_options.m_normalThresh, m_options.m_bitmapEpsilon);
@@ -758,13 +766,17 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 					for(size_t i = 0; i < shuffleIndices.size(); ++i)
 						reindex[shuffleIndices[i]] = i;
 					// reindex global octree
+#ifdef DOPARALLEL
 					#pragma omp parallel for schedule(static)
-					for(intptr_t i = 0; i < globalOctreeIndices.size(); ++i)
+#endif
+					for(int i = 0; i < static_cast<int>(globalOctreeIndices.size()); ++i)
 						if(globalOctreeIndices[i] < reindex.size())
 							globalOctreeIndices[i] = reindex[globalOctreeIndices[i]];
 					// reindex candidates
+#ifdef DOPARALLEL
 					#pragma omp parallel for schedule(static, 100)
-					for(intptr_t i = 0; i < candidates.size(); ++i)
+#endif
+					for(int i = 0; i < static_cast<int>(candidates.size()); ++i)
 						candidates[i].Reindex(reindex);
 					for(size_t i = 1, begin = subsetSizes[0] + beginIdx;
 						i < octrees.size(); begin += subsetSizes[i], ++i)
@@ -802,8 +814,10 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 			{
 				// the bounds of the candidates have become invalid and have to be
 				// recomputed
-				#pragma parallel for schedule(static, 100)
-				for(size_t i = 0; i < candidates.size(); ++i)
+#ifdef DOPARALLEL
+				#pragma omp parallel for schedule(static, 100)
+#endif
+				for(int i = 0; i < static_cast<int>(candidates.size()); ++i)
 					candidates[i].RecomputeBounds(octrees, pc, subsetScoreVisitor,
 						currentSize - numInvalid, m_options.m_epsilon,
 						m_options.m_normalThresh, m_options.m_bitmapEpsilon);
@@ -856,7 +870,7 @@ RansacShapeDetector::Detect(PointCloud &pc, size_t beginIdx, size_t endIdx,
 		for(size_t i = 0; i < numShapes; ++i, ++shapeIt)
 			shapeIterators[i] = end -= ((*shapes)[shapeIt]).second;
 
-		for(size_t i = beginIdx, j = 0; i < beginIdx + currentSize; ++i)
+		for(size_t i = beginIdx; i < beginIdx + currentSize; ++i)
 			if(shapeIndex[i] < 0)
 				shapeIndex[i] = begin++;
 			else

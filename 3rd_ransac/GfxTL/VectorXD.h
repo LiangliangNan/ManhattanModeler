@@ -12,11 +12,8 @@
 #include <GfxTL/StdOverrides.h>
 #include <iostream>
 #include <algorithm>
-#include <algorithm>
-
-// Liangliang: I don't want boost dependence
-// #include <boost/utility.hpp>
-// #include <boost/type_traits.hpp>
+//#include <boost/utility.hpp>
+//#include <boost/type_traits.hpp>
 
 namespace GfxTL
 {
@@ -70,14 +67,14 @@ namespace GfxTL
 					SuperType::_m[i] = x;
 			}
 
-			// Liangliang: I don't want boost dependence
-			// 			template< class S >
-			// 			explicit VectorXD(const S x,
-			// 				typename boost::enable_if_c< boost::is_convertible< S, ScalarType >::value, NullClass >::type &dummy = *((NullClass *)0))
-			// 			{
-			// 				for(unsigned int i = 0; i < Dim; ++i)
-			// 					SuperType::_m[i] = ScalarType(x);
-			// 			}
+			/*template< class S >
+			explicit VectorXD(const S x,
+				typename boost::enable_if_c< boost::is_convertible< S, ScalarType >::value, NullClass >::type &dummy = *((NullClass *)0))
+			{
+				for(unsigned int i = 0; i < Dim; ++i)
+					SuperType::_m[i] = ScalarType(x);
+			}
+			//*/
 
 			template< unsigned int X >
 			explicit VectorXD(const VectorXD< X, T > &vec)
@@ -114,18 +111,18 @@ namespace GfxTL
 
 			VectorXD(T x, T y)
 			{
-#ifdef WIN32
-				SuperType::AssertDim< D, 2 >::AssertEqual();
-#endif
+//#ifdef WIN32
+//				SuperType::AssertDim< D, 2 >::AssertEqual();
+//#endif
 				SuperType::_m[0] = x;
 				SuperType::_m[1] = y;
 			}
 
 			VectorXD(T x, T y, T z)
 			{
-#ifdef WIN32
-				SuperType::AssertDim< D, 3 >::AssertEqual();
-#endif
+//#ifdef WIN32
+//				SuperType::AssertDim< D, 3 >::AssertEqual();
+//#endif
 				SuperType::_m[0] = x;
 				SuperType::_m[1] = y;
 				SuperType::_m[2] = z;
@@ -133,9 +130,9 @@ namespace GfxTL
 
 			VectorXD(T x, T y, T z, T w)
 			{
-#ifdef WIN32
-				SuperType::AssertDim< D, 4 >::AssertEqual();
-#endif
+//#ifdef WIN32
+//				SuperType::AssertDim< D, 4 >::AssertEqual();
+//#endif
 				SuperType::_m[0] = x;
 				SuperType::_m[1] = y;
 				SuperType::_m[2] = z;
@@ -234,7 +231,7 @@ namespace GfxTL
 			{
 				ScalarType s = 0;
 				for(unsigned int i = 0; i < D; ++i)
-					s += abs(SuperType::_m[i]);
+					s += fabs(SuperType::_m[i]);
 				return s;
 			}
 
@@ -252,11 +249,11 @@ namespace GfxTL
 			{
 				ScalarType diff, d;
 				diff = SuperType::_m[0] - v[0];
-				d = diff * diff; 
+				d = diff * diff;
 				for(unsigned int i = 1; i < Dim; ++i)
 				{
 					diff = SuperType::_m[i] - v[i];
-					d += diff * diff; 
+					d += diff * diff;
 				}
 				return d;
 			}
@@ -404,7 +401,7 @@ namespace GfxTL
 	{
 		typename VectorXD< D, T >::ScalarType retVal = a[0] * b[0];
 		for(unsigned int i = 1; i < D; ++i)
-			retVal += a[i] * b[i];	
+			retVal += a[i] * b[i];
 		return retVal;
 	}
 

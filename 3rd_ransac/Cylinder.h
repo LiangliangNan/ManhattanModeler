@@ -92,7 +92,9 @@ private:
 		{
 			ScalarType chi = 0;
 			int size = end - begin;
+#ifdef DOPARALLEL
 			#pragma omp parallel for schedule(static) reduction(+:chi)
+#endif
 			for(int idx = 0; idx < size; ++idx)
 			{
 				Vec3f s;
@@ -116,7 +118,9 @@ private:
 			const ScalarType *values, const ScalarType *temp, ScalarType *matrix) const
 		{
 			int size = end - begin;
+#ifdef DOPARALLEL
 			#pragma omp parallel for schedule(static)
+#endif
 			for(int idx = 0; idx < size; ++idx)
 			{
 				Vec3f s;
@@ -124,7 +128,7 @@ private:
 					s[j] = begin[idx][j] - params[j];
 				ScalarType g = s[0] * begin[idx][0] + s[1] * begin[idx][1]
 					+ s[2] * begin[idx][2];
-				if(temp[idx] < 1e-6)
+				if(temp[idx] < 1.0e-6)
 				{
 					matrix[idx * NumParams + 0] = std::sqrt(1 - params[3] * params[3]);
 					matrix[idx * NumParams + 1] = std::sqrt(1 - params[4] * params[4]);
@@ -172,7 +176,7 @@ inline float Cylinder::Distance(const Vec3f &p) const
 	Vec3f diff = p - m_axisPos;
 	float lambda = m_axisDir.dot(diff);
 	float axisDist = (diff - lambda * m_axisDir).length();
-	return abs(axisDist - m_radius);
+	return fabs(axisDist - m_radius);
 }
 
 inline void Cylinder::Normal(const Vec3f &p, Vec3f *normal) const
@@ -191,7 +195,7 @@ inline float Cylinder::DistanceAndNormal(const Vec3f &p, Vec3f *normal) const
 	float axisDist = normal->length();
 	if(axisDist > 0) 
 		*normal /= axisDist;
-	return abs(axisDist - m_radius);
+	return fabs(axisDist - m_radius);
 }
 
 inline float Cylinder::SignedDistance(const Vec3f &p) const
@@ -244,7 +248,7 @@ inline unsigned int Cylinder::Intersect(const Vec3f &p, const Vec3f &r,
     // unit-length direction.
     float fDz = m_axisDir.dot(r);
 
-    if(abs(fDz) >= 1.f - 1e-7f)
+    if(fabs(fDz) >= 1.f - 1e-7f)
         // The line is parallel to the cylinder axis.
 		return 0;
 

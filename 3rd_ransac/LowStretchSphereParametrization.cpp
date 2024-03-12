@@ -1,6 +1,10 @@
 #include "LowStretchSphereParametrization.h"
 #include "Bitmap.h"
 
+#if !defined(_WIN32) && !defined(WIN32)
+#include <unistd.h>
+#endif
+
 LowStretchSphereParametrization::LowStretchSphereParametrization(
 	const Sphere &sphere)
 : m_sphere(&sphere)
@@ -42,8 +46,6 @@ void LowStretchSphereParametrization::WrapComponents(const GfxTL::AABox< GfxTL::
 		// determine starting position in the next column
 		if(u < uextent - 1)
 		{
-			float uangleNext = ((u + 1.5f) * epsilon + bbox.Min()[0]) / m_sphere->Radius();
-			float radiusNext = std::sin(uangle) * m_sphere->Radius();
 			vstartNext = float(-M_PI) * radius;
 			vendNext = float(M_PI) * radius;
 			vsNext =  std::min(vextent - 1, (size_t)std::max((intptr_t)0,

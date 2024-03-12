@@ -15,7 +15,7 @@
 #undef max
 
 
-#define POINT_HAS_INDEX // Liangliang: each feedback
+#define POINT_HAS_INDEX // Liangliang: easy feedback
 
 
 #ifndef DLL_LINKAGE

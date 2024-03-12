@@ -14,7 +14,11 @@
 #include <algorithm>
 #include <memory>
 #include <deque>
-#include <cstdlib>
+#ifndef __APPLE__
+#include <malloc.h>
+#else
+#include <stdlib.h>
+#endif
 
 namespace GfxTL
 {
@@ -260,7 +264,7 @@ namespace GfxTL
 					else
 						BaseType::LeaveGlobalBuildInformation(*p.first, p.second);
 					while(p.second.CreateChild() < CellType::NChildren &&
-						!ExistChild(*p.first, p.second.CreateChild()))
+						!this->ExistChild(*p.first, p.second.CreateChild()))
 						++p.second.CreateChild();
 					if(p.second.CreateChild() == CellType::NChildren)
 					{
@@ -362,10 +366,7 @@ namespace GfxTL
 					BaseGlobalTraversalInformation< PointT > > GlobalInfoType;
 				typedef typename BaseType::template TraversalInformation<
 					BaseTraversalInformation< GlobalInfoType > > TraversalInformation;
-				typedef typename BaseType::template DistanceType<
-							typename ScalarTypeDeferer< PointT >::ScalarType,
-							ScalarType
-						>::Type DistanceType;
+                
 				GlobalInfoType gti;
 				TraversalInformation ti;
 				neighbors->clear();

@@ -24,9 +24,9 @@ size_t MiscLib::rn_point = MiscLib_RN_BUFSIZE;
 
 void MiscLib::rn_setseed(size_t seed)
 {
-  register int t, j;
+  int t, j;
   size_t x[KK+KK-1];
-  register size_t ss = evenize(seed+2);
+  size_t ss = evenize(seed+2);
   for (j=0;j<KK;j++) {
     x[j]=ss;
     ss<<=1;
@@ -59,7 +59,7 @@ size_t MiscLib::rn_refresh()
 /* You remember Duff's device? If it would help then it should be used here */
   rn_point=1;
 
-  register int i, j;
+  int i, j;
   for (j=KK;j<MiscLib_RN_BUFSIZE;j++) 
     rn_buf[j]=mod_diff(rn_buf[j-KK],rn_buf[j-LL]);
   for (i=0;i<LL;i++,j++) rn_buf[i]=mod_diff(rn_buf[j-KK],rn_buf[j-LL]);

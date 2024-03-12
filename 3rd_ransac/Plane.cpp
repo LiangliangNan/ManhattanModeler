@@ -52,7 +52,7 @@ bool Plane::InitAverage(const MiscLib::Vector< Vec3f > &samples)
 	m_pos = Vec3f(0, 0, 0);
 	size_t c = samples.size() / 2;
 	MiscLib::Vector< GfxTL::Vector3Df > normals(c);
-	for(intptr_t i = 0; i < c; ++i)
+	for(size_t i = 0; i < c; ++i)
 		normals[i] = GfxTL::Vector3Df(samples[i + c]);
 	GfxTL::Vector3Df meanNormal;
 	GfxTL::MeanOfNormals(normals.begin(), normals.end(), &meanNormal);
@@ -124,7 +124,9 @@ public:
 	{
 		ScalarType chi = 0;
 		int size = end - begin;
-#pragma omp parallel for schedule(static) reduction(+:chi)
+#ifdef DOPARALLEL
+		#pragma omp parallel for schedule(static) reduction(+:chi)
+#endif
 		for(int idx = 0; idx < size; ++idx)
 		{
 			temp[idx] = params[0] * begin[idx][0] + params[1] * begin[idx][1]
@@ -140,7 +142,9 @@ public:
 		const ScalarType *values, const ScalarType *temp, ScalarType *matrix) const
 	{
 		int size = end - begin;
-#pragma omp parallel for schedule(static)
+#ifdef DOPARALLEL
+		#pragma omp parallel for schedule(static)
+#endif
 		for(int idx = 0; idx < size; ++idx)
 		{
 			matrix[idx * NumParams + 0] = begin[idx][0];

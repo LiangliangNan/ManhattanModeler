@@ -76,7 +76,7 @@ using namespace std;
  * * Cambridge University Press, 1992, Section 8.5, ISBN 0-521-43108-5
  * * This code by Nicolas Devillard - 1998. Public domain.
  * */
-#define ELEM_SWAP(a,b) { register float t=(a);(a)=(b);(b)=t; }
+#define ELEM_SWAP(a,b) { float t=(a);(a)=(b);(b)=t; }
 float quick_select(float arr[], int n)
 {
 	int low, high ;
@@ -256,7 +256,7 @@ void PointCloud::calcNormals ( float radius, unsigned int kNN, unsigned int maxT
 			{
 				if ( tries > maxTries/2 ) {
 					// let us see how good the first half of candidates are...
-					int index = std::floor(180/M_PI*std::acos(std::min(1.f, abs(plane.getNormal().dot(at(i).normal)))));
+					int index = std::floor(180/M_PI*std::acos(std::min(1.f, fabs(plane.getNormal().dot(at(i).normal)))));
 					stats[index]++;
 				}
 				at(i).normal = plane.getNormal();

@@ -81,6 +81,9 @@ public:
 		const GfxTL::AABox< GfxTL::Vector2Df > &bbox, size_t uextent,
 		size_t vextent, Vec3f *p, Vec3f *n) const;
 
+	Vec3f getXDim() const {return Vec3f(m_hcs[0].Data());};
+	Vec3f getYDim() const {return Vec3f(m_hcs[1].Data());};
+
 private:
 	template< class IteratorT >
 	void ParametersImpl(IteratorT begin, IteratorT end,

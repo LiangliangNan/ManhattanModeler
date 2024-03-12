@@ -71,11 +71,11 @@ float Torus::Distance(const Vec3f &p) const
 	float spin0 = (s - spin1 * m_normal).length();
 	spin0 -= m_rmajor;
 	if(!m_appleShaped)
-		return abs(std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor);
+		return fabs(std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor);
 	// apple shaped torus distance
 	float minorAngle = std::atan2(spin1, spin0); // minor angle
-	if(abs(minorAngle) < m_cutOffAngle)
-		return abs(std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor);
+	if(fabs(minorAngle) < m_cutOffAngle)
+		return fabs(std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor);
 	spin0 += 2 * m_rmajor - m_rminor;
 	if(minorAngle < 0)
 		spin1 += m_appleHeight;
@@ -86,14 +86,15 @@ float Torus::Distance(const Vec3f &p) const
 
 void Torus::Normal(const Vec3f &p, Vec3f *n) const
 {
-	Vec3f s = p - m_center, tmp;
+    Vec3f s = p - m_center;
 	float spin1 = m_normal.dot(s);
-	float spin0 = (s - (tmp = spin1 * m_normal)).length();
+    Vec3f tmp = spin1 * m_normal;
+    float spin0 = (s - tmp).length();
 	spin0 -= m_rmajor;
 	if(m_appleShaped)
 	{
 		float minorAngle = std::atan2(spin1, spin0); // minor angle
-		if(abs(minorAngle) > m_cutOffAngle)
+		if(fabs(minorAngle) > m_cutOffAngle)
 		{
 			*n = m_normal;
 			if(minorAngle < 0)
@@ -110,14 +111,15 @@ void Torus::Normal(const Vec3f &p, Vec3f *n) const
 
 float Torus::DistanceAndNormal(const Vec3f &p, Vec3f *n) const
 {
-	Vec3f s = p - m_center, tmp;
+    Vec3f s = p - m_center;
 	float spin1 = m_normal.dot(s);
-	float spin0 = (s - (tmp = spin1 * m_normal)).length();
+    Vec3f tmp = spin1 * m_normal;
+    float spin0 = (s - tmp).length();
 	spin0 -= m_rmajor;
 	if(m_appleShaped)
 	{
 		float minorAngle = std::atan2(spin1, spin0); // minor angle
-		if(abs(minorAngle) > m_cutOffAngle)
+		if(fabs(minorAngle) > m_cutOffAngle)
 		{
 			*n = m_normal;
 			if(minorAngle < 0)
@@ -136,7 +138,7 @@ float Torus::DistanceAndNormal(const Vec3f &p, Vec3f *n) const
 	*n = spin0 * plx + tmp;
 	float d = std::sqrt(spin0 * spin0 + spin1 * spin1);
 	*n /= d;
-	return abs(d - m_rminor);
+	return fabs(d - m_rminor);
 }
 
 float Torus::SignedDistance(const Vec3f &p) const
@@ -149,7 +151,7 @@ float Torus::SignedDistance(const Vec3f &p) const
 		return std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor;
 	// apple shaped torus distance
 	float minorAngle = std::atan2(spin1, spin0); // minor angle
-	if(abs(minorAngle) < m_cutOffAngle)
+	if(fabs(minorAngle) < m_cutOffAngle)
 		return std::sqrt(spin0 * spin0 + spin1 * spin1) - m_rminor;
 	spin0 += 2 * m_rmajor - m_rminor;
 	if(minorAngle < 0)
@@ -161,14 +163,15 @@ float Torus::SignedDistance(const Vec3f &p) const
 
 float Torus::SignedDistanceAndNormal(const Vec3f &p, Vec3f *n) const
 {
-	Vec3f s = p - m_center, tmp;
+    Vec3f s = p - m_center;
 	float spin1 = m_normal.dot(s);
-	float spin0 = (s - (tmp = spin1 * m_normal)).length();
+    Vec3f tmp = spin1 * m_normal;
+    float spin0 = (s - tmp).length();
 	spin0 -= m_rmajor;
 	if(m_appleShaped)
 	{
 		float minorAngle = std::atan2(spin1, spin0); // minor angle
-		if(abs(minorAngle) > m_cutOffAngle)
+		if(fabs(minorAngle) > m_cutOffAngle)
 		{
 			*n = m_normal;
 			if(minorAngle < 0)
@@ -192,14 +195,15 @@ float Torus::SignedDistanceAndNormal(const Vec3f &p, Vec3f *n) const
 
 void Torus::Project(const Vec3f &p, Vec3f *pp) const
 {
-	Vec3f s = p - m_center, tmp;
+    Vec3f s = p - m_center;
 	float spin1 = m_normal.dot(s);
-	float spin0 = (s - (tmp = spin1 * m_normal)).length();
+    Vec3f tmp = spin1 * m_normal;
+    float spin0 = (s - tmp).length();
 	spin0 -= m_rmajor;
 	if(m_appleShaped)
 	{
 		float minorAngle = std::atan2(spin1, spin0); // minor angle
-		if(abs(minorAngle) > m_cutOffAngle)
+		if(fabs(minorAngle) > m_cutOffAngle)
 		{
 			*pp = m_center + GfxTL::Math< float >::Sign(minorAngle) * m_normal;
 			return;

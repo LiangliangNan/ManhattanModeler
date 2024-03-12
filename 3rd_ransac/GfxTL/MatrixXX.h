@@ -187,11 +187,11 @@ protected:
 	{
 		static inline void AssertEqual()
 		{
-#ifdef WIN32
-			Error_InvalidDimension();
-#else
+//#ifdef WIN32
+//			Error_InvalidDimension();
+//#else
 			exit(123);
-#endif
+//#endif
 		}
 	};
 

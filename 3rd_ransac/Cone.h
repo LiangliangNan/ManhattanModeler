@@ -1,10 +1,8 @@
 #ifndef CONE_HEADER
 #define CONE_HEADER
-
-#if (defined DOPARALLEL) && (defined _WIN32)
+#ifdef DOPARALLEL
 #include <omp.h>
 #endif
-
 #include "basic.h"
 #include "PointCloud.h"
 #include <GfxTL/HyperplaneCoordinateSystem.h>
@@ -12,6 +10,9 @@
 #include <ostream>
 #include <istream>
 #include <stdio.h>
+#if !defined(_WIN32) && !defined(WIN32)
+#include <unistd.h>
+#endif
 #include <MiscLib/NoShrinkVector.h>
 #include "LevMarLSWeight.h"
 #include "LevMarFitting.h"
@@ -101,13 +102,15 @@ private:
 			ScalarType cosPhi = std::cos(params[6]);
 			ScalarType sinPhi = std::sin(params[6]);
 			int size = end - begin;
+#ifdef DOPARALLEL
 			#pragma omp parallel for schedule(static) reduction(+:chi)
+#endif
 			for(int idx = 0; idx < size; ++idx)
 			{
 				Vec3f s;
 				for(unsigned int j = 0; j < 3; ++j)
 					s[j] = begin[idx][j] - params[j];
-				ScalarType g = abs(s[0] * params[3] + s[1] * params[4] + s[2] * params[5]);
+				ScalarType g = fabs(s[0] * params[3] + s[1] * params[4] + s[2] * params[5]);
 				ScalarType f = s.sqrLength() - (g * g);
 				if(f <= 0)
 					f = 0;
@@ -127,20 +130,22 @@ private:
 			ScalarType sinPhi = -std::sin(params[6]);
 			ScalarType cosPhi = std::cos(params[6]);
 			int size = end - begin;
+#ifdef DOPARALLEL
 			#pragma omp parallel for schedule(static)
+#endif
 			for(int idx = 0; idx < size; ++idx)
 			{
 				Vec3f s;
 				for(unsigned int j = 0; j < 3; ++j)
 					s[j] = begin[idx][j] - params[j];
-				ScalarType g = abs(s[0] * params[3] + s[1] * params[4] + s[2] * params[5]);
+				ScalarType g = fabs(s[0] * params[3] + s[1] * params[4] + s[2] * params[5]);
 				ScalarType ggradient[6];
 				for(unsigned int j = 0; j < 3; ++j)
 					ggradient[j] = -params[j + 3];
 				for(unsigned int j = 0; j < 3; ++j)
 					ggradient[j + 3] = s[j] - params[j + 3] * g;
 				ScalarType fgradient[6];
-				if(temp[idx] < 1e-6)
+				if(temp[idx] < 1.0e-6)
 				{
 					fgradient[0] = std::sqrt(1 - params[3] * params[3]);
 					fgradient[1] = std::sqrt(1 - params[4] * params[4]);
@@ -212,7 +217,7 @@ inline float Cone::Distance(const Vec3f &p) const
 	float db = m_n2d[1] * g;
 	if(g < 0 && da - db < 0) // is inside other side of cone -> disallow
 		return std::sqrt(sqrS);
-	return abs(da + db);
+	return fabs(da + db);
 }
 
 inline void Cone::Normal(const Vec3f &p, Vec3f *n) const
@@ -244,7 +249,7 @@ inline float Cone::DistanceAndNormal(const Vec3f &p, Vec3f *n) const
 	if(g < 0 && da - db < 0) // is inside other side of cone -> disallow
 		dist = std::sqrt(sqrS);
 	else
-		dist = abs(da + db);
+		dist = fabs(da + db);
 	// need normal
 	Vec3f plx = s - g * m_axisDir;
 	plx.normalize();
@@ -321,7 +326,7 @@ const Vec3f Cone::AngularDirection() const
 
 float Cone::RadiusAtLength(float length) const
 {
-	return std::sin(m_angle) * abs(length);
+	return std::sin(m_angle) * fabs(length);
 }
 
 float Cone::Height(const Vec3f &p) const
@@ -342,7 +347,7 @@ bool Cone::LeastSquaresFit(IteratorT begin, IteratorT end)
 	LevMarCone< LevMarLSWeight > levMarCone;
 	if(!LevMar(begin, end, levMarCone, param))
 		return false;
-	if(param[6] < 1e-6 || param[6] > float(M_PI) / 2 - 1e-6)
+	if(param[6] < 1.0e-6 || param[6] > float(M_PI) / 2 - 1.0e-6)
 		return false;
 	for(unsigned int i = 0; i < 3; ++i)
 		m_center[i] = param[i];
@@ -362,9 +367,11 @@ bool Cone::LeastSquaresFit(IteratorT begin, IteratorT end)
 	// the axis needs to be flipped.
 	float heightSum = 0;
 	intptr_t size = end - begin;
-#ifndef _WIN64 // for some reason the Microsoft x64 compiler crashes at the next line
-	#pragma omp parallel for schedule(static) reduction(+:heightSum) 
+//#ifndef _WIN64 // for some reason the Microsoft x64 compiler crashes at the next line
+#ifdef DOPARALLEL
+	#pragma omp parallel for schedule(static) reduction(+:heightSum)
 #endif
+//#endif
 	for(intptr_t i = 0; i < size; ++i)
 		heightSum += Height(begin[i]);
 	if(heightSum < 0)
@@ -393,7 +400,8 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
     // Q(t) = 0 must be tested for Dot(A,L(t)-V) >= 0.
 	using namespace std;
     float fAdD = m_axisDir.dot(r);
-    float tmp, fCosSqr = (tmp = cos(m_angle)) * tmp;
+    float tmp = cos(m_angle);
+    float fCosSqr = tmp * tmp;
     Vec3f kE = p - m_center;
     float fAdE = m_axisDir.dot(kE);
     float fDdE = r.dot(kE);
@@ -405,11 +413,11 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
 
     // Solve the quadratic.  Keep only those X for which Dot(A,X-V) >= 0.
 	unsigned int interCount = 0;
-    if (abs(fC2) >= 1e-7)
+    if (fabs(fC2) >= 1e-7)
     {
         // c2 != 0
         float fDiscr = fC1*fC1 - fC0*fC2;
-        if (fDiscr < (float)0.0)
+        if (fDiscr < 0)
         {
             // Q(t) = 0 has no real-valued roots.  The line does not
             // intersect the double-sided cone.
@@ -422,7 +430,7 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
             // cone "behind" the vertex.  We are interested only in those
             // intersections "in front" of the vertex.
             float fRoot = sqrt(fDiscr);
-            float fInvC2 = ((float)1.0)/fC2;
+            float fInvC2 = 1.0f/fC2;
             interCount = 0;
 
             float fT = (-fC1 - fRoot)*fInvC2;
@@ -431,7 +439,7 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
 				interPts[interCount] = p + fT*r;
 				kE = interPts[interCount] - m_center;
 				fdot = kE.dot(m_axisDir);
-				if (fdot > (float)0.0)
+				if (fdot > 0)
 				{
 					lambda[interCount] = fT;
 					interCount++;
@@ -444,7 +452,7 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
 				interPts[interCount] = p + fT*r;
 				kE = interPts[interCount] - m_center;
 				fdot = kE.dot(m_axisDir);
-				if (fdot > (float)0.0)
+				if (fdot > 0)
 				{
 					lambda[interCount] = fT;
 					interCount++;
@@ -457,22 +465,22 @@ inline unsigned int Cone::Intersect(const Vec3f &p, const Vec3f &r,
             interPts[0] = p - (fC1/fC2)*r;
 			lambda[0] = -(fC1 / fC2);
             kE = interPts[0] - m_center;
-            if (kE.dot(m_axisDir) > (float)0.0)
+            if (kE.dot(m_axisDir) > 0)
                 interCount = 1;
             else
                 interCount = 0;
         }
     }
-    else if (abs(fC1) >= 1e-7)
+    else if (fabs(fC1) >= 1.0e-7f)
     {
         // c2 = 0, c1 != 0 (D is a direction vector on the cone boundary)
-		lambda[0] = -(((float)0.5)*fC0/fC1);
+		lambda[0] = -(0.5f * fC0/fC1);
 		if(lambda[0] < 0)
 			return 0;
         interPts[0] = p + lambda[0] *r;
         kE = interPts[0] - m_center;
         fdot = kE.dot(m_axisDir);
-        if (fdot > (float)0.0)
+        if (fdot > 0)
             interCount = 1;
         else
             interCount = 0;

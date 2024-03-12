@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <algorithm>
 
 #define DOUBLE_TOLERANCE 1e-10
 
@@ -24,7 +25,7 @@ public :
 
 	double	  length()		{	return sqrt(pVec[0] * pVec[0] + pVec[1] * pVec[1] + pVec[2] * pVec[2]);	}
 	double	  length2()		{	return pVec[0] * pVec[0] + pVec[1] * pVec[1] + pVec[2] * pVec[2];	}
-	double	  normalize()	{	double len = length();	if (abs(len) > DOUBLE_TOLERANCE) {pVec[0]/=len;pVec[1]/=len;pVec[2]/=len;}	return len;	}
+	double	  normalize()	{	double len = length();	if (std::abs(len) > DOUBLE_TOLERANCE) {pVec[0]/=len;pVec[1]/=len;pVec[2]/=len;}	return len;	}
 	bool      IsInfinite()	{   return ( pVec[0] == 1e300 && pVec[1] == 1e300 && pVec[2] == 1e300 );  }
 	CVector3D XY()			{	return CVector3D( pVec[0], pVec[1], 0.0 );	}
 

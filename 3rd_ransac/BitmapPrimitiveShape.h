@@ -10,8 +10,7 @@
 #include <GfxTL/IndexedIterator.h>
 #include "IndexIterator.h"
 #include <MiscLib/Pair.h>
-
-#if (defined DOPARALLEL) && (defined _WIN32)
+#ifdef DOPARALLEL
 #include <omp.h>
 #endif
 
@@ -136,7 +135,9 @@ void BitmapPrimitiveShape::BuildBitmap(const PointCloud &pc, float *epsilon,
 	std::fill(bitmap->begin(), bitmap->end(), false);
 	// set all true bits in bitmap
 	bmpIdx->resize(params->size());
-	//#pragma omp parallel for schedule(static)
+#ifdef DOPARALLEL
+	#pragma omp parallel for schedule(static)
+#endif
 	for(int i = 0; i < size; ++i)
 	{
 		std::pair< int, int > bmpParam;

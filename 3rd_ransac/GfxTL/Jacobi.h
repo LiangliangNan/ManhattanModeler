@@ -5,7 +5,9 @@
 #include <GfxTL/MathHelper.h>
 #include <GfxTL/Array.h>
 #include <memory>
-
+#if !defined(_WIN32) && !defined(WIN32)
+#include <unistd.h>
+#endif
 namespace GfxTL
 {
 	//Computes all eigenvalues and eigenvectors of a real symmetric matrix a[1..n][1..n]. On
@@ -47,7 +49,7 @@ namespace GfxTL
 			for(ip = 0; ip < N - 1; ip++)
 			{
 				for(iq = ip + 1; iq < N; iq++)
-					sm += abs(a[iq][ip]);
+					sm += std::abs(a[iq][ip]);
 			}
 			if(sm == T(0))
 				return true;
@@ -59,23 +61,23 @@ namespace GfxTL
 			{
 				for(iq = ip + 1; iq < N; iq++)
 				{
-					g = T(100) * abs(a[iq][ip]);
-					temp1 = abs((*d)[ip]) + g;
-					temp2 = abs((*d)[iq]) + g;
+					g = T(100) * std::abs(a[iq][ip]);
+					temp1 = std::abs((*d)[ip]) + g;
+					temp2 = std::abs((*d)[iq]) + g;
 					if(i > 4 &&
-						temp1 == abs((*d)[ip]) &&
-						temp2 == abs((*d)[iq]))
+						temp1 == std::abs((*d)[ip]) &&
+						temp2 == std::abs((*d)[iq]))
 						a[iq][ip] = T(0);
-					else if(abs(a[iq][ip]) > tresh)
+					else if(std::abs(a[iq][ip]) > tresh)
 					{
 						h = (*d)[iq] - (*d)[ip];
-						temp1 = (abs(h) + g);
-						if(temp1 == abs(h))
+						temp1 = (std::abs(h) + g);
+						if(temp1 == std::abs(h))
 							t = a[iq][ip] / h;
 						else
 						{
 							theta = T(0.5) * h / a[iq][ip];
-							t = T(1) / (abs(theta) + 
+							t = T(1) / (std::abs(theta) + 
 								sqrt(T(1) + theta * theta));
 							if(theta < T(0))
 								t = -t;
@@ -159,7 +161,7 @@ namespace GfxTL
 		intptr_t j, iq, ip, i;
 		T tresh, theta, tau, t, sm, s, h, g, c;
 		T volatile temp1, temp2;
-		auto_ptr< T > ab(new T[N]), az(new T[N]);
+		unique_ptr< T > ab(new T[N]), az(new T[N]);
 		T *b = ab.get(), *z = az.get();
 		for(ip = 0; ip < N; ip++)
 		{
@@ -180,7 +182,7 @@ namespace GfxTL
 			for(ip = 0; ip < N - 1; ip++)
 			{
 				for(iq = ip + 1; iq < N; iq++)
-					sm += abs((*a)[iq][ip]);
+					sm += std::abs((*a)[iq][ip]);
 			}
 			if(sm == T(0))
 				return true;
@@ -192,23 +194,23 @@ namespace GfxTL
 			{
 				for(iq = ip + 1; iq < N; iq++)
 				{
-					g = T(100) * abs((*a)[iq][ip]);
-					temp1 = abs((*d)[ip]) + g;
-					temp2 = abs((*d)[iq]) + g;
+					g = T(100) * std::abs((*a)[iq][ip]);
+					temp1 = std::abs((*d)[ip]) + g;
+					temp2 = std::abs((*d)[iq]) + g;
 					if(i > 4 &&
-						temp1 == abs((*d)[ip]) &&
-						temp2 == abs((*d)[iq]))
+						temp1 == std::abs((*d)[ip]) &&
+						temp2 == std::abs((*d)[iq]))
 						(*a)[iq][ip] = T(0);
-					else if(abs((*a)[iq][ip]) > tresh)
+					else if(std::abs((*a)[iq][ip]) > tresh)
 					{
 						h = (*d)[iq] - (*d)[ip];
-						temp1 = (abs(h) + g);
-						if(temp1 == abs(h))
+						temp1 = (std::abs(h) + g);
+						if(temp1 == std::abs(h))
 							t = (*a)[iq][ip] / h;
 						else
 						{
 							theta = T(0.5) * h / (*a)[iq][ip];
-							t = T(1) / (abs(theta) + 
+							t = T(1) / (std::abs(theta) + 
 								sqrt(T(1) + theta * theta));
 							if(theta < T(0))
 								t = -t;

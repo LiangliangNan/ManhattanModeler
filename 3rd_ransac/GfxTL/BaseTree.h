@@ -37,8 +37,18 @@ namespace GfxTL
 
 	template< class Cell >
 	inline bool BaseTree< Cell >::IsLeaf(const CellType &cell) const
-	{
-		return &(cell[0]) == NULL;
+	{  
+        // Liangliang: the compiler may do some strange optimization and on my macOS
+        //             it always returns false (even for 0x0 == 0). I found other people
+        //             also noticed this and proposed an solution:
+        //             https://github.com/CloudCompare/CloudCompare/issues/523
+        //return (&(cell[0])) == NULL;
+
+        //----------------------------------
+        volatile auto st = &(cell[0]);                  //  this works
+        //volatile size_t st = (size_t)(&(cell[0]));    //  this also works
+        return st == NULL;
+        //----------------------------------
 	}
 
 	template< class Cell >

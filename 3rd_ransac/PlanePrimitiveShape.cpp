@@ -202,8 +202,8 @@ void PlanePrimitiveShape::InBitmap(const std::pair< float, float > &param,
 	float epsilon, const GfxTL::AABox< GfxTL::Vector2Df > &bbox, size_t,
 	size_t, std::pair< int, int > *inBmp) const
 {
-	inBmp->first = std::floor((param.first - bbox.Min()[0]) / epsilon);
-	inBmp->second = std::floor((param.second - bbox.Min()[1]) / epsilon);
+	inBmp->first = (int)std::floor((param.first - bbox.Min()[0]) / epsilon);
+	inBmp->second = (int)std::floor((param.second - bbox.Min()[1]) / epsilon);
 }
 void PlanePrimitiveShape::WrapBitmap(
 	const GfxTL::AABox< GfxTL::Vector2Df > &bbox, float epsilon, bool *uwrap,

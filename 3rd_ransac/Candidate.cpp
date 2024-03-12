@@ -1,5 +1,9 @@
 #include "Candidate.h"
 
+#if !defined(_WIN32) && !defined(WIN32)
+#include <unistd.h>
+#endif
+
 Candidate::Candidate()
 : m_subset(0)
 , m_lowerBound(0)
@@ -74,7 +78,9 @@ float Candidate::WeightedScore(const PointCloud &pc, float epsilon,
 	float normalThresh) const
 {
 	float score = 0;
+#ifdef DOPARALLEL
 	#pragma omp parallel for schedule(static) reduction(+:score)
+#endif
 	for(intptr_t i = 0; i < (intptr_t)m_indices->size(); ++i)
 		score += weigh(m_shape->Distance(pc[(*m_indices)[i]].pos), epsilon);
 	return score;
@@ -82,7 +88,6 @@ float Candidate::WeightedScore(const PointCloud &pc, float epsilon,
 
 void Candidate::ConnectedComponent(const PointCloud &pc, float bitmapEpsilon, float* borderRatio )
 {
-	size_t oldSize = m_indices->size();
 	size_t connectedSize = m_shape->ConnectedComponent(pc, bitmapEpsilon, m_indices, true, borderRatio);
 	m_indices->resize(connectedSize);
 	m_lowerBound = m_upperBound = (float)m_indices->size();
@@ -102,7 +107,7 @@ bool Candidate::IsEquivalent(const Candidate &c, const PointCloud &pc,
 		c.m_shape->DistanceAndNormalDeviation(
 			pc[m_indices->at(idx)].pos,
 			pc[m_indices->at(idx)].normal, &dn);
-		if(dn.first < epsilon && abs(dn.second) > normalThresh)
+		if(dn.first < epsilon && fabs(dn.second) > normalThresh)
 			++correct;
 	}
 	size_t tested = size;
@@ -114,7 +119,7 @@ bool Candidate::IsEquivalent(const Candidate &c, const PointCloud &pc,
 		m_shape->DistanceAndNormalDeviation(
 			pc[c.m_indices->at(idx)].pos,
 			pc[c.m_indices->at(idx)].normal, &dn);
-		if(dn.first < epsilon && abs(dn.second) > normalThresh)
+		if(dn.first < epsilon && fabs(dn.second) > normalThresh)
 			++correct;
 	}
 	tested += size;
@@ -131,14 +136,14 @@ float Candidate::GetVariance( const PointCloud &pc )
 		// first pass - get expectancy
 		float expectancy = 0.0f;
 		for( int i = 0; i < m_indices->size(); ++i )
-			expectancy += abs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal));
+			expectancy += fabs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal));
 
 		expectancy /= static_cast<float>( m_indices->size());
 
 		// second pass - get real variance
 		for( int i = 0; i < m_indices->size(); ++i )
 		{
-			dev = abs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal)) - expectancy;
+			dev = fabs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal)) - expectancy;
 			variance += dev * dev;
 		}
 
@@ -157,7 +162,7 @@ float Candidate::GetPseudoVariance( const PointCloud &pc )
 
 	for( int i = 0; i < m_indices->size(); ++i )
 	{
-		dev = abs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal)) - 1.0f;
+		dev = fabs( m_shape->NormalDeviation( pc[(*m_indices)[i]].pos, pc[(*m_indices)[i]].normal)) - 1.0f;
 		variance += dev * dev;
 	}
 	variance /= static_cast<float>( m_indices->size());

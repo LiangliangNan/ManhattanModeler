@@ -6,11 +6,9 @@
 #include <MiscLib/Performance.h>
 #include <GfxTL/IndexedIterator.h>
 #include "LevMarLSWeight.h"
-
-#if (defined DOPARALLEL) && (defined _WIN32)
+#ifdef DOPARALLEL
 #include <omp.h>
 #endif
-
 
 template< class InIteratorT, class OutIteratorT >
 static void SpinImage(const Vec3f &axisPos, const Vec3f &axisDir,
@@ -127,26 +125,27 @@ bool Torus::Init(const MiscLib::Vector< Vec3f > &samples)
 		std::back_inserter(spin2));
 	float minorRadius1, majorRadius1, minorRadius2, majorRadius2,
 		distSum1 = std::numeric_limits< float >::infinity(),
-		distSum2 = std::numeric_limits< float >::infinity(),
-		tmp;
+        distSum2 = std::numeric_limits< float >::infinity();
 	GfxTL::Vector2Df minorCenter1, minorCenter2;
 	if(CircleFrom3Points(spin1.begin(), &minorRadius1, &minorCenter1))
 	{
 		majorRadius1 = minorCenter1[0];
 		// compute the distance of the points to the torus
 		distSum1 = 0;
-		for(size_t i = 3; i < spin1.size(); ++i)
-			distSum1 += (tmp = ((spin1[i] - minorCenter1).Length()
-				- minorRadius1)) * tmp;
+        for(size_t i = 3; i < spin1.size(); ++i) {
+            float tmp = (spin1[i] - minorCenter1).Length() - minorRadius1;
+            distSum1 += tmp * tmp;
+        }
 	}
 	if(CircleFrom3Points(spin2.begin(), &minorRadius2, &minorCenter2))
 	{
 		majorRadius2 = minorCenter2[0];
 		// compute the distance of the points to the torus
 		distSum2 = 0;
-		for(size_t i = 3; i < spin2.size(); ++i)
-			distSum2 += (tmp = ((spin2[i] - minorCenter2).Length()
-				- minorRadius2)) * tmp;
+        for(size_t i = 3; i < spin2.size(); ++i) {
+            float tmp = (spin2[i] - minorCenter2).Length() - minorRadius2;
+            distSum2 += tmp * tmp;
+        }
 	}
 	if(distSum1 != std::numeric_limits< float >::infinity()
 		&& distSum1 < distSum2)
@@ -204,8 +203,8 @@ bool Torus::InitAverage(const MiscLib::Vector< Vec3f > &samples)
 				{
 					double a01 = n0xn1 * dsamples[k + y];
 					double b01 = n0xn1 * dsamples[k + z];
-					if(GfxTL::Math< double >::Abs(a01) < 1e-6
-						|| GfxTL::Math< double >::Abs(b01) < 1e-6)
+					if(GfxTL::Math< double >::Abs(a01) < 1.0e-6
+						|| GfxTL::Math< double >::Abs(b01) < 1.0e-6)
 							continue;
 					double a0 = ((dsamples[y] - dsamples[x])
 						% dsamples[k + w]) * dsamples[k + y];
@@ -256,26 +255,27 @@ foundAxis:
 		std::back_inserter(spin2));
 	float minorRadius1, majorRadius1, minorRadius2, majorRadius2,
 		distSum1 = std::numeric_limits< float >::infinity(),
-		distSum2 = std::numeric_limits< float >::infinity(),
-		tmp;
+        distSum2 = std::numeric_limits< float >::infinity();
 	GfxTL::Vector2Df minorCenter1, minorCenter2;
 	if(CircleFrom3Points(spin1.begin(), &minorRadius1, &minorCenter1))
 	{
 		majorRadius1 = minorCenter1[0];
 		// compute the distance of the points to the torus
 		distSum1 = 0;
-		for(size_t i = 3; i < spin1.size(); ++i)
-			distSum1 += (tmp = ((spin1[i] - minorCenter1).Length()
-				- minorRadius1)) * tmp;
+        for(size_t i = 3; i < spin1.size(); ++i) {
+            float tmp = (spin1[i] - minorCenter1).Length() - minorRadius1;
+            distSum1 += tmp * tmp;
+        }
 	}
 	if(CircleFrom3Points(spin2.begin(), &minorRadius2, &minorCenter2))
 	{
 		majorRadius2 = minorCenter2[0];
 		// compute the distance of the points to the torus
 		distSum2 = 0;
-		for(size_t i = 3; i < spin2.size(); ++i)
-			distSum2 += (tmp = ((spin2[i] - minorCenter2).Length()
-				- minorRadius2)) * tmp;
+        for(size_t i = 3; i < spin2.size(); ++i) {
+            float tmp = (spin2[i] - minorCenter2).Length() - minorRadius2;
+            distSum2 += tmp * tmp;
+        }
 	}
 	if(distSum1 != std::numeric_limits< float >::infinity()
 		&& distSum1 < distSum2)
@@ -367,8 +367,8 @@ float TorusDistance(const float *param,	const float *x)
 	v = param[4] * s[0] - param[3] * s[1];
 	f += v * v;
 	f = std::sqrt(f);
-	float tmp;
-	return std::sqrt(g * g + ((tmp = (f - param[6])) * tmp)) - param[7];
+    float tmp = (f - param[6]);
+    return std::sqrt(g * g + (tmp * tmp)) - param[7];
 }
 
 void TorusDistanceDerivatives(const float *param, const float *x,
@@ -400,8 +400,8 @@ void TorusDistanceDerivatives(const float *param, const float *x,
 	df[3] = g * df[0];
 	df[4] = g * df[1];
 	df[5] = g * df[2];
-	float tmp;
-	float d = std::sqrt(g * g + ((tmp = (f - param[6])) * tmp)) - param[7];
+    float tmp = (f - param[6]);
+    float d = std::sqrt(g * g + (tmp * tmp)) - param[7];
 	float dr = d + param[7];
 	float fr = f - param[6];
 	for(unsigned int i = 0; i < 6; ++i)
@@ -432,7 +432,9 @@ public:
 	{
 		ScalarType chi = 0;
 		int size = end - begin;
-#pragma omp parallel for schedule(static) reduction(+:chi)
+#ifdef DOPARALLEL
+		#pragma omp parallel for schedule(static) reduction(+:chi)
+#endif
 		for(int idx = 0; idx < size; ++idx)
 		{
 			Vec3f s;
@@ -448,9 +450,9 @@ public:
 			f += v * v;
 			f = std::sqrt(f);
 			temp[idx] = f;
-			ScalarType tmp;
+            ScalarType tmp = (f - params[6]);
 			chi += (values[idx] = WeightT::Weigh(
-				std::sqrt(g * g + ((tmp = (f - params[6])) * tmp)) - params[7]))
+                std::sqrt(g * g + (tmp * tmp)) - params[7]))
 				* values[idx];;
 		}
 		return chi;
@@ -461,7 +463,9 @@ public:
 		const ScalarType *values, const ScalarType *temp, ScalarType *matrix) const
 	{
 		int size = end - begin;
-#pragma omp parallel for schedule(static)
+#ifdef DOPARALLEL
+		#pragma omp parallel for schedule(static)
+#endif
 		for(int idx = 0; idx < size; ++idx)
 		{
 			Vec3f s;
@@ -484,8 +488,8 @@ public:
 			df[3] = g * df[0];
 			df[4] = g * df[1];
 			df[5] = g * df[2];
-			ScalarType tmp;
-			ScalarType d = std::sqrt(g * g + ((tmp = (temp[idx] - params[6])) * tmp)) - params[7];
+            ScalarType tmp = (temp[idx] - params[6]);
+            ScalarType d = std::sqrt(g * g + (tmp * tmp)) - params[7];
 			ScalarType dr = d + params[7];
 			ScalarType fr = temp[idx] - params[6];
 			for(unsigned int j = 0; j < 6; ++j)
@@ -586,7 +590,7 @@ void Torus::ComputeAppleParams()
 {
 	if(!m_appleShaped)
 	{
-		m_cutOffAngle = M_PI;
+		m_cutOffAngle = static_cast<float>(M_PI);
 		m_appleHeight = 0;
 		return;
 	}

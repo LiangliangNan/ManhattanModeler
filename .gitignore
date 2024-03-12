@@ -1,0 +1,7 @@
+.vs
+Debug\*.*
+Release\*.*
+*.tlog
+*.recipe
+*.user
+*.log

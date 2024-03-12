@@ -553,8 +553,6 @@ namespace GfxTL
 		template< class PointT, class MaskT, class BoxPointT >
 		void IncludeInAABoxMaskIgnore(const PointT &p, const MaskT &mask, BoxPointT box[2]) const
 		{
-			typedef typename ScalarTypeDeferer< BoxPointT >::ScalarType
-				ScalarType;
 			for(unsigned int i = 0; i < VectorKernelT::m_dim / MaskElemSizeT::m_maskElemSize; ++i)
 				if(mask[i])
 					for(unsigned int j = 0; j < MaskElemSizeT::m_maskElemSize; ++j)
