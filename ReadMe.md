@@ -2,9 +2,9 @@
 This code implements the urban reconstruction method described in:
 
 "Manhattan-world Urban Reconstruction from Point Clouds". ECCV 2016.
-    - Minglei Li (minglei_li@126.com),
-    - Peter Wonka (pwonka@gmail.com),
-    - Liangliang Nan (liangliang.nan@gmail.com)
+- Minglei Li (minglei_li@126.com),
+- Peter Wonka (pwonka@gmail.com),
+- Liangliang Nan (liangliang.nan@gmail.com)
 
  Please cite our paper if you use the data/code (or part of it).
 
@@ -20,12 +20,10 @@ How to run the program?
 ===========================================================================
 
 How to compile the source code?
-  - The implementation is based on the following third party libraries;
-       a) The gco-v3.0 library (included). See http://vision.csd.uwo.ca/code/
-       b) CGAL (version 4.7 used in this implementation). You can downloaded it here: http://www.cgal.org/index.html
-       c) boost (version 1.59.0 used in this implementation). You can downloaded it here: http://www.boost.org/
-       d) libQGLViewer (included). See http://libqglviewer.com/
-  - In this distribution, project file(s) for Visual Studio 2013 are provided for compiling the code.
+  - This prototype implementation is based on the following third party libraries;
+    - CGAL (versions 4.7 and 5.6 have been tested). You can downloaded it here: https://github.com/CGAL/cgal/releases
+    - Qt5 (versions 5.6 and 5.15 have been tested). You can downloaded it here: https://download.qt.io/archive/qt/5.14/5.14.2/
+  - In this distribution, project file(s) for Visual Studio 2019 are provided for compiling the code.
 
 Should you have any question regarding the implementation, please contact Dr. Minglei Li at minglei_li@126.com. 
 
